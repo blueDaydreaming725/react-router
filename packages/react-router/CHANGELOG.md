@@ -1,5 +1,40 @@
 # `react-router`
 
+## v8.5.1
+
+### Patch Changes
+
+- Fix `URIError: URI malformed` when an API-only (`ssr: "unstable_api-only"`) server or an `ssr: false` dev server receives a URL path with a malformed percent-encoding ([#15649](https://github.com/remix-run/react-router/pull/15649))
+
+- Encode commas within paths sent to the lazy route discovery manifest endpoint so routes with commas in their paths are discovered correctly ([#15640](https://github.com/remix-run/react-router/pull/15640))
+
+- Fix fetcher revalidation errors bubbling to the root error boundary instead of the nearest boundary above the route that owns the fetcher ([#15676](https://github.com/remix-run/react-router/pull/15676))
+
+- Fix a `<Form method="post">` submission to the current URL pushing a duplicate history entry instead of replacing it when its `action` is written with characters that get percent-encoded, such as spaces or non-ASCII characters ([#15679](https://github.com/remix-run/react-router/pull/15679))
+
+- Fix an unhandled promise rejection when the browser skips a `viewTransition` navigation, for example in a hidden tab ([#15582](https://github.com/remix-run/react-router/pull/15582))
+
+- Bubble a rejected `lazy.Component` import on a loader-less route to the nearest error boundary instead of swallowing it and rendering a blank page ([#15658](https://github.com/remix-run/react-router/pull/15658))
+
+- Preserve pending fetcher mutation revalidation when an older navigation or background reload completes to prevent stale loader data ([#15686](https://github.com/remix-run/react-router/pull/15686))
+
+  Keep newer fetcher loads cancellable and preserve them when earlier revalidations finish or abort, preventing older responses from overwriting fresh fetcher data
+
+- Retry rejected `lazy` route imports instead of caching failures permanently ([#15689](https://github.com/remix-run/react-router/pull/15689))
+
+- Revalidate loader data when a fetcher action redirect is not followed ([#15557](https://github.com/remix-run/react-router/pull/15557))
+  - A fetcher action redirect is ignored when a newer navigation started while the action was running, or when the fetcher unmounted before it finished. The action still ran, so loaders now revalidate instead of leaving stale loader data in place, including shared parent loaders when another navigation completed while the action was running. Routes can still opt out via `shouldRevalidate`
+  - When a fetcher revalidation completes a pending navigation that another fetcher's redirect started, that fetcher now returns to `idle` instead of staying in `loading`
+
+- Stop the published types from adding a `document.startViewTransition()` overload to the global `Document`, so its return value can be assigned to the DOM `ViewTransition` type again ([#15680](https://github.com/remix-run/react-router/pull/15680))
+
+- Fix duplicate headers when throwing a redirect from an RSC server function ([#15667](https://github.com/remix-run/react-router/pull/15667))
+
+- Skip `deleteData` in `destroySession` when the session has no ID, so destroying a session without a cookie no longer fails on storage that rejects an empty key ([#15639](https://github.com/remix-run/react-router/pull/15639))
+
+- Fix SSR-unsafe error being rendered for non-prerendered parameterized routes served via the SPA fallback ([#15646](https://github.com/remix-run/react-router/pull/15646))
+  - When an `ssr:false` app with a `prerender` config served the SPA fallback document for a non-prerendered path, hydrating routes with a server `loader` no longer skipped the single-fetch `.data` request, so a missing `.data` file now surfaces the host's 404 response instead of an internal "No result found for routeId" error
+
 ## v8.5.0
 
 ### Minor Changes
