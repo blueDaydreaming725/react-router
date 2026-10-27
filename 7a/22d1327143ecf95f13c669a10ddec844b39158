@@ -1,0 +1,23 @@
+packages/create-react-router/__tests__/create-react-router-test.ts
+  s_41df8aaa43b3c9::t_1cc5f8e8701061 204-207,210-239
+packages/create-react-router/index.ts
+  s_41df8aaa43b3c9::t_1c2623684060f1 243
+packages/create-react-router/.changes/patch.project-directory-basename.md
+  s_41df8aaa43b3c9::t_292fc5d4083264 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.51-trip",
+  "base_commit_sha": "7a22d1327143ecf95f13c669a10ddec844b39158",
+  "prompts": {},
+  "sessions": {
+    "s_41df8aaa43b3c9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a15d60-5453-7b30-add6-70dd10c696ad",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "yuxuan.weng <wengyx@trip.com>"
+    }
+  }
+}
